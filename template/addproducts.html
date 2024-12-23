@@ -1,0 +1,52 @@
+{% extends "home.html" %} 
+{% block content %} 
+{% include "navbar.html" %}
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-8 h-8 mr-2" src="https://t3.ftcdn.net/jpg/03/14/85/06/360_F_314850659_2aQLerz30kWj78tqpaGSbzYD6sAUmuDf.jpg" alt="logo">
+                SwiftCart    
+            </a>
+            <div class="w-full bg-gray-200 rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        ADD A PRODUCT
+                    </h1>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.product_name }}
+                            {% if form.product_name.errors %}
+                                <p class="text-sm text-red-500">{{ form.product_name.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <p class="text-sm text-red-500">{{ form.description.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.price }}
+                            {% if form.price.errors %}
+                                <p class="text-sm text-red-500">{{ form.price.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_image" class="block text-sm font-bold text-gray-900">Image</label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <p class="text-sm text-red-500">{{ form.image.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn bg-gray-900  text-white py-2 px-4 rounded-lg">
+                            Add New Product
+                        </button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+      </section>
+    
+      {% endblock content %}
