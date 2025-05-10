@@ -1,32 +1,61 @@
-
 <body>
-    <nav class="bg-blue-800 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 relative flex h-16 items-center justify-between" >
-        <div class="flex shrink-0 items-center">
-            <div class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"  aria-expanded="false" aria-haspopup="true">
-                <span class="absolute -inset-1.5"></span>
-                <a href="{% url 'home' %} ">
-                <img class="rounded-full w-10" src="https://t3.ftcdn.net/jpg/03/14/85/06/360_F_314850659_2aQLerz30kWj78tqpaGSbzYD6sAUmuDf.jpg">
+    <nav class="bg-gradient-to-r from-blue-700 to-blue-800 shadow-lg mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative flex h-20 items-center justify-between">
+        <!-- Logo and Brand -->
+        <div class="flex items-center space-x-4">
+            <div class="flex shrink-0 items-center transform hover:scale-105 transition duration-200">
+                <a href="{% url 'home' %}" class="relative flex rounded-full ring-2 ring-white ring-opacity-20 hover:ring-opacity-40 focus:outline-none">
+                    <span class="absolute -inset-1.5"></span>
+                    <img class="rounded-full w-12 h-12 object-cover border-2 border-white border-opacity-30" 
+                         src="https://t3.ftcdn.net/jpg/03/14/85/06/360_F_314850659_2aQLerz30kWj78tqpaGSbzYD6sAUmuDf.jpg" 
+                         alt="SwiftCart Logo">
                 </a>
             </div>
-        </div> 
-        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start hidden sm:ml-3 sm:block flex space-x-4 ">
-            <a href="{% url 'home' %} " class="text-3xl font-bold text-white">SwiftCart</a>
+            
+            <a href="{% url 'home' %}" class="hidden sm:block">
+                <span class="text-3xl font-bold text-white font-sans tracking-tight">SwiftCart</span>
+            </a>
         </div>
-        <div class="ml-3">
-            
-            {% if user.is_authenticated %}
-            <a href="{% url "view_cart" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">🛒</a>
-            <a href="{% url "signout" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">SignOut</a>
-            {% else %}
-            <a href="{% url "signin" %}"class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">Signin</a>
-            <a href="{% url "signup" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">Signup</a>
-            {% endif %}
-            {% if user.is_superuser %}
-            <a href="{% url "addproducts" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">Addproducts</a>
-            {% endif %}
 
+        <!-- Navigation Links -->
+        <div class="flex items-center space-x-2">
+            {% if user.is_authenticated %}
+                <a href="{% url 'view_cart' %}" class="relative px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span class="ml-1 hidden sm:inline">Cart</span>
+                </a>
+                
+                <a href="{% url 'signout' %}" class="px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="ml-1 hidden sm:inline">Sign Out</span>
+                </a>
+            {% else %}
+                <a href="{% url 'signin' %}" class="px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="ml-1 hidden sm:inline">Sign In</span>
+                </a>
+                
+                <a href="{% url 'signup' %}" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition-colors duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                    <span class="ml-1 hidden sm:inline">Sign Up</span>
+                </a>
+            {% endif %}
             
+            {% if user.is_superuser %}
+                <a href="{% url 'addproducts' %}" class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-500 transition-colors duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <span class="ml-1 hidden sm:inline">Add Products</span>
+                </a>
+            {% endif %}
         </div>
     </nav>
-    
 </body>
