@@ -123,7 +123,7 @@ def delete_product(request, id):
 
 
 
-def product_view(request, pk):
+def product_detail_view(request, pk):
     product = get_object_or_404(Products, pk=pk)
     return render(request, 'product_detail.html', {'product': product})
 
@@ -138,7 +138,7 @@ def add_to_cart(request, pk):
     if not created:
         cart_item.quantity += 1
         cart_item.save()
-    return redirect('cart')  # Or back to 'product_detail' or 'userproduct'
+    return redirect('view_cart')  # Or back to 'product_detail' or 'userproduct'
 
 @login_required
 def view_cart(request):
@@ -148,11 +148,17 @@ def view_cart(request):
 
 
 @login_required
-def remove_from_cart(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
-    cart_item.delete()
-    messages.success(request, "Item removed from your cart.")
-    return redirect('view_cart')  # Change to your cart view URL name
+def remove_from_cart(request, pk):
+    cart_item = get_object_or_404(CartItem, id=pk, user=request.user)
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+        messages.info(request, "Quantity decreased by 1.")
+    else:
+        cart_item.delete()
+        messages.success(request, "Item removed from your cart.")
+    return redirect('view_cart')
+
 
 
 #payment view

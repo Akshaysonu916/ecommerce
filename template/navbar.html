@@ -15,7 +15,7 @@
         <div class="ml-3">
             
             {% if user.is_authenticated %}
-            <a href="{% url "cart" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">🛒</a>
+            <a href="{% url "view_cart" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">🛒</a>
             <a href="{% url "signout" %}" class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">SignOut</a>
             {% else %}
             <a href="{% url "signin" %}"class="rounded-md px-3 py-2 text-sm font-medium text-green-300 hover:bg-gray-700 hover:text-white">Signin</a>

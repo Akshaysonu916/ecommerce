@@ -49,6 +49,9 @@
                         </div>
                     </a>
                     <div class="mt-4">
+                        <a href="{% url 'add_to_cart' product.id %}" class="inline-block w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white text-center hover:bg-blue-700">Add to Cart</a>
+                    </div>
+                    <div class="mt-4">
                         <a href="{% url 'buy_now' product.id %}" class="inline-block w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white text-center hover:bg-blue-700">Buy Now</a>
                     </div>
                 </div>

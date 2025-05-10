@@ -13,12 +13,12 @@ urlpatterns = [
     path('delete_product/<int:id>/',delete_product,name='delete_product'),
     path('userproduct/',user_product_view,name='userproduct'),
 
-    path('product/<int:pk>/', product_view, name='product_detail'),
+    path('product/<int:pk>/', product_detail_view, name='product_detail'),
     #cart urls
-    path('cart/',view_cart, name='cart'),
+    path('cart/',view_cart, name='view_cart'),
+    # path('cart/', view_cart, name='view_cart'),
     path('add-to-cart/<int:pk>/',add_to_cart, name='add_to_cart'),
-    path('remove-from-cart/<int:item_id>/',remove_from_cart, name='remove_from_cart'),
-
+    path('remove-from-cart/<int:pk>/',remove_from_cart, name='remove_from_cart'),
 
     #payment urls
     path('buy/<int:product_id>/', buy_now, name='buy_now'),
