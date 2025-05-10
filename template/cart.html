@@ -1,0 +1,100 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-16">
+  <div class="max-w-4xl mx-auto px-4">
+    
+    <!-- Cart Header -->
+    <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-4">
+      <h1 class="text-3xl font-serif font-bold text-gray-900 dark:text-white">Your Shopping Cart</h1>
+    </div>
+    
+    <!-- Cart Items -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-8">
+      {% if items %}
+        <!-- Cart Item Headers -->
+        <div class="hidden md:grid md:grid-cols-12 text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 p-4">
+          <div class="md:col-span-5">Product</div>
+          <div class="md:col-span-2 text-center">Quantity</div>
+          <div class="md:col-span-3 text-right">Price</div>
+          <div class="md:col-span-2 text-right">Action</div>
+        </div>
+        
+        <!-- Cart Item Listing -->
+        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+          {% for item in items %}
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-6 items-center">
+              <!-- Product Info -->
+              <div class="md:col-span-5">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ item.product.product_name }}</h3>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Quantity -->
+              <div class="md:col-span-2 flex items-center justify-center">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                  {{ item.quantity }}
+                </span>
+              </div>
+              
+              <!-- Price -->
+              <div class="md:col-span-3 text-right">
+                <span class="text-lg font-medium text-gray-900 dark:text-white">${{ item.total_price }}</span>
+              </div>
+
+              <!-- Remove Button -->
+              <div class="md:col-span-2 text-right">
+                <a href="{% url 'remove_from_cart' item.id %}"
+                   class="text-red-600 hover:text-red-800 text-sm font-medium underline transition">
+                   Remove
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Empty Cart State -->
+        <div class="flex flex-col items-center justify-center py-16">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">Your cart is empty</h3>
+          <p class="mt-1 text-gray-500 dark:text-gray-400">Browse our products and discover something special.</p>
+        </div>
+      {% endif %}
+    </div>
+    
+    <!-- Order Summary -->
+    {% if items %}
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Order Summary</h2>
+        
+        <div class="space-y-3">
+          <!-- Total -->
+          <div class="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-4 mt-6">
+            <span class="text-lg font-serif font-bold text-gray-900 dark:text-white">Order Total</span>
+            <span class="text-xl font-serif font-bold text-emerald-600 dark:text-emerald-400">${{ total }}</span>
+          </div>
+        </div>
+        
+        <!-- Checkout Button -->
+        <div class="mt-8">
+          <a href="#" class="block w-full text-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+            Proceed to Checkout
+          </a>
+          
+          <div class="mt-4 text-center">
+            <a href="{% url 'userproduct' %}" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

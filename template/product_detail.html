@@ -1,0 +1,83 @@
+{% extends "home.html" %}
+{% block content %}
+{% include "navbar.html" %}
+
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-12">
+  <div class="max-w-5xl mx-auto px-4">
+    <!-- Breadcrumb Navigation -->
+    <nav class="mb-6 flex items-center text-sm">
+      <a href="{% url 'userproduct' %}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white flex items-center transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Return to Products
+      </a>
+    </nav>
+    
+    <!-- Product Detail Card -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <!-- Product Image Section -->
+        <div class="bg-gray-100 dark:bg-gray-700 p-6 flex items-center justify-center">
+          <div class="relative w-full aspect-square">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="w-full h-full object-contain rounded-lg" />
+          </div>
+        </div>
+        
+        <!-- Product Info Section -->
+        <div class="p-8 space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-6">
+            <h1 class="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-2">{{ product.product_name }}</h1>
+            <p class="text-2xl font-medium text-emerald-600 dark:text-emerald-400">${{ product.price }}</p>
+          </div>
+          
+          <div class="py-4">
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+              This is a detailed description for the product. You can customize this section to show more attributes like brand, availability, specs, etc.
+            </p>
+          </div>
+          
+          <!-- Product Features -->
+          <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <div class="flex items-center space-x-2 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700 dark:text-gray-300">Premium Quality</span>
+            </div>
+            <div class="flex items-center space-x-2 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700 dark:text-gray-300">Fast Shipping</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700 dark:text-gray-300">Satisfaction Guaranteed</span>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
+            <a href="{% url 'add_to_cart' product.pk %}" class="inline-flex justify-center items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Add to Cart
+            </a>
+            <a href="{% url 'buy_now' product.pk %}" class="inline-flex justify-center items-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-base font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Buy Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
