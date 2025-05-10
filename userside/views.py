@@ -4,6 +4,7 @@ from . models import *
 from django.contrib.auth import logout,authenticate,login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 
 # Create your views here.
 
@@ -124,8 +125,34 @@ def delete_product(request, id):
 
 
 def product_detail_view(request, pk):
+    # Get the product or 404 if not found
     product = get_object_or_404(Products, pk=pk)
-    return render(request, 'product_detail.html', {'product': product})
+    
+    # Fetch all reviews related to the product
+    reviews = product.reviews.all()
+    
+    # Calculate the average rating for the product
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg'] if reviews.exists() else None
+    
+    # Handle the review submission if the request is POST
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user  # Associate review with the logged-in user
+            review.save()
+            return redirect('product_detail', pk=product.pk)
+    else:
+        form = ReviewForm()
+
+    # Pass product, reviews, form, and average rating to the template
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'reviews': reviews,
+        'form': form,
+        'average_rating': average_rating,
+    })
 
 
 
