@@ -158,7 +158,7 @@ def product_detail_view(request, pk):
 
 
 #cart view
-@login_required
+@login_required(login_url='signin')
 def add_to_cart(request, pk):
     product = Products.objects.get(pk=pk)
     cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
@@ -167,14 +167,14 @@ def add_to_cart(request, pk):
         cart_item.save()
     return redirect('view_cart')  # Or back to 'product_detail' or 'userproduct'
 
-@login_required
+@login_required(login_url='signin')
 def view_cart(request):
     items = CartItem.objects.filter(user=request.user)
     total = sum(item.total_price() for item in items)
     return render(request, 'cart.html', {'items': items, 'total': total})
 
 
-@login_required
+@login_required(login_url='signin')
 def remove_from_cart(request, pk):
     cart_item = get_object_or_404(CartItem, id=pk, user=request.user)
     if cart_item.quantity > 1:
@@ -187,12 +187,15 @@ def remove_from_cart(request, pk):
     return redirect('view_cart')
 
 
-
+@login_required(login_url='signin')
 #payment view
 def buy_now(request, product_id):
     product = get_object_or_404(Products, id=product_id)
     # You could log this "purchase" or simulate an order here
     return redirect('thank_you')
 
+
+
+@login_required(login_url='signin')
 def thank_you(request):
     return render(request, 'thank_you.html')

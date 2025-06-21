@@ -11,7 +11,7 @@
     {% include "navbar.html" %}
     <div class="relative flex items-center justify-center h-screen overflow-hidden">
         <div class="relative z-30 p-5 text-2xl text-white bg-opacity-50 rounded-xl">
-            <button class="px-4 py-2 border font-bold border-blue-500 text-white rounded-lg hover:bg-white hover:text-black hover:animate-pulse">
+            <button class="px-4 py-2 border font-bold border-blue-500 text-black rounded-lg hover:bg-white hover:text-black hover:animate-pulse">
                 {% if user.is_staff %}
                     <!-- Redirect to admin products page -->
                     <a href="{% url 'products' %}">
@@ -26,7 +26,7 @@
             </button>
         </div>
         <video autoplay loop muted class="absolute z-10 w-auto min-w-full min-h-full max-w-none">
-            <source src="https://v.ftcdn.net/06/60/65/07/700_F_660650712_v1WqYoS1OEVce2RG98pQG9KV0hsCSgPq_ST.mp4" type="video/mp4" />
+            <source src="" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
     </div>
