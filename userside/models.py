@@ -8,10 +8,22 @@ class User(AbstractUser):
                 return self.username
 
 class Products(models.Model):
-        product_name=models.CharField(max_length=100)
-        description=models.CharField(max_length=100,blank=True)
-        price=models.IntegerField()
-        image=models.ImageField(upload_to='images')
+    CATEGORY_CHOICES = [
+        ('all', 'All'),
+        ('phones', 'Phones'),
+        ('toys', 'Toys'),
+        ('watches', 'Watches'),
+        ('electronics', 'Electronics'),
+    ]
+
+    product_name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, blank=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='all')
+    price = models.IntegerField()
+    image = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        return self.product_name
 
 class Order(models.Model):
     PAYMENT_CHOICES = [

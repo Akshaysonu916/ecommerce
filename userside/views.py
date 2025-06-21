@@ -16,7 +16,7 @@ def add_products(request):
         form = Product_form(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('addproducts')
+            return redirect('products')
         else:
             form=Product_form()
     context = {
@@ -73,7 +73,7 @@ def signin_view(request):
             if user.is_superuser:
                 return redirect('products')
             else:
-                return redirect('home')
+                return redirect('userproduct')
 
 
         else:
@@ -95,15 +95,20 @@ def product_view(request):
     return render(request,'products.html',{'products':pdt})
 
 def user_product_view(request):
-    try:
-        searching = request.GET.get('searching', '')
-        if searching:
-            pdt = Products.objects.filter(product_name__icontains=searching)
-        else:
-            pdt = Products.objects.all()
-        return render(request, 'userproducts.html', {'products': pdt})
-    except Products.DoesNotExist:
-        pdt = Products.objects.none()
+    searching = request.GET.get('searching', '')
+    category = request.GET.get('category', '')
+
+    products = Products.objects.all()
+
+    # Apply search filter
+    if searching:
+        products = products.filter(product_name__icontains=searching)
+
+    # Apply category filter (ignore 'all')
+    if category and category != 'all':
+        products = products.filter(category=category)
+
+    return render(request, 'userproducts.html', {'products': products})
 
 
 def edit_product(request,id):

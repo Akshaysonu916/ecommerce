@@ -17,6 +17,9 @@ class Product_form(forms.ModelForm):
                 'placeholder': 'Enter description',
                 'rows': 4,
             }),
+            'category': forms.Select(attrs={
+                'class': 'form-control block w-full px-4 py-2 m-3 text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500',
+            }),
             'price': forms.NumberInput(attrs={
                 'class': 'form-control block w-full px-4 py-2 m-3 text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500',
                 'placeholder': 'Enter price',
@@ -25,7 +28,6 @@ class Product_form(forms.ModelForm):
                 'class': 'form-control block w-full px-4 py-2 m-3 text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500',
             }),
         }
-
 
 class OrderForm(forms.ModelForm):
     class Meta:
