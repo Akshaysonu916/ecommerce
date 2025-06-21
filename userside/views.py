@@ -187,15 +187,35 @@ def remove_from_cart(request, pk):
     return redirect('view_cart')
 
 
-@login_required(login_url='signin')
-#payment view
-def buy_now(request, product_id):
+# @login_required(login_url='signin')
+# #payment view
+# def buy_now(request, product_id):
+#     product = get_object_or_404(Products, id=product_id)
+#     # You could log this "purchase" or simulate an order here
+#     return redirect('thank_you')
+
+
+
+# @login_required(login_url='signin')
+# def thank_you(request):
+#     return render(request, 'thank_you.html')
+
+
+def place_order(request, product_id):
     product = get_object_or_404(Products, id=product_id)
-    # You could log this "purchase" or simulate an order here
-    return redirect('thank_you')
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.product = product
+            order.save()
+            return redirect('order_success')
+    else:
+        form = OrderForm()
+    
+    return render(request, 'order_form.html', {'form': form, 'product': product})
 
 
-
-@login_required(login_url='signin')
-def thank_you(request):
-    return render(request, 'thank_you.html')
+def order_success(request):
+    return render(request, 'order_success.html')

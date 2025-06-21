@@ -21,6 +21,8 @@ urlpatterns = [
     path('remove-from-cart/<int:pk>/',remove_from_cart, name='remove_from_cart'),
 
     #payment urls
-    path('buy/<int:product_id>/', buy_now, name='buy_now'),
-    path('thank-you/', thank_you, name='thank_you'),
+    # path('buy/<int:product_id>/', buy_now, name='buy_now'),
+    # path('thank-you/', thank_you, name='thank_you'),
+    path('order/<int:product_id>/', place_order, name='place_order'),
+    path('order-success/', order_success, name='order_success'),
 ]

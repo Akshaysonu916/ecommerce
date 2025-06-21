@@ -1,0 +1,9 @@
+<!-- templates/order_form.html -->
+<h2>Order: {{ product.product_name }}</h2>
+<p>Price: ₹{{ product.price }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Place Order</button>
+</form>

@@ -13,6 +13,22 @@ class Products(models.Model):
         price=models.IntegerField()
         image=models.ImageField(upload_to='images')
 
+class Order(models.Model):
+    PAYMENT_CHOICES = [
+        ('cod', 'Cash on Delivery'),
+        ('bank', 'Bank Transfer'),
+    ]
+    
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length=100)
+    address = models.TextField()
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
+    is_paid = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order for {self.product.product_name} by {self.customer_name}"
+
 
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
